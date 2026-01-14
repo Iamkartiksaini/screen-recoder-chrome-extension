@@ -17,11 +17,17 @@ chrome.action.onClicked.addListener(async (tab) => {
     activeTabId = tab.id;
 
     try {
-        // 1. Try to send a toggle message to see if it's already there
-        await chrome.tabs.sendMessage(tab.id, { action: "TOGGLE_UI" });
+        // First check if the tab is recording
+        const response = await chrome.tabs.sendMessage(tab.id, { action: "GET_STATUS" });
+        if (response && (response.status === 'recording' || response.status === 'paused')) {
+            await chrome.tabs.sendMessage(tab.id, { action: "STOP_RECORDING" });
+        } else {
+            // Not recording, just toggle the dock visibility
+            await chrome.tabs.sendMessage(tab.id, { action: "TOGGLE_UI" });
+        }
     } catch (err) {
-        // 2. If it fails, the script isn't there yet. Inject it.
-        console.log("[Screen Recorder] Script not found, injecting...");
+        // If it fails, the script isn't there yet. Inject it.
+        console.log("[Screen Recorder] Script not found, injecting...", err);
         try {
             await chrome.scripting.executeScript({
                 target: { tabId: tab.id },
@@ -37,5 +43,21 @@ chrome.action.onClicked.addListener(async (tab) => {
 chrome.tabs.onRemoved.addListener((tabId) => {
     if (tabId === activeTabId) {
         activeTabId = null;
+        chrome.action.setBadgeText({ text: '' });
+    }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "UPDATE_STATUS") {
+        const { status, time } = request;
+        if (status === 'recording') {
+            const mins = Math.floor(time / 60);
+            const secs = time % 60;
+            const text = `${mins}:${secs.toString().padStart(2, '0')}`;
+            chrome.action.setBadgeText({ text });
+            chrome.action.setBadgeBackgroundColor({ color: '#ef4444' });
+        } else {
+            chrome.action.setBadgeText({ text: '' });
+        }
     }
 });

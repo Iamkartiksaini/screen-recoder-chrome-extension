@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
-import styles from './App.module.scss';
-import { useScreenRecorder } from './hooks/useScreenRecorder';
-import ControlDock from './components/ControlDock';
+import styles from '../App.module.scss';
+import { useScreenRecorder } from '../hooks/useScreenRecorder';
+import ControlDock from './ControlDock';
 
-const ScreenRecorder = (props) => {
+const ScreenRecorderExperiment = (props) => {
     const {
         status, setStatus,
         time,
@@ -61,6 +61,7 @@ const ScreenRecorder = (props) => {
                 chrome.runtime.sendMessage({ action: "UPDATE_STATUS", status: 'idle', time: 0 });
             } catch (e) { }
         }
+        console.log("Experiment Mode")
     }, [status, time]);
 
     // Handle Preview (Open New Tab)
@@ -112,4 +113,4 @@ const ScreenRecorder = (props) => {
     );
 };
 
-export default ScreenRecorder;
+export default ScreenRecorderExperiment;
