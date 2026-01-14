@@ -1,18 +1,70 @@
-# React + Vite
+# Chrome Screen Recorder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A powerful, lightweight, and privacy-focused screen recording extension for Google Chrome. Built with modern web technologies, this tool offers professional-grade recording capabilities directly from your browser without the need for external software.
 
-Currently, two official plugins are available:
+## 🎯 Motive
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The goal of this project is to provide users with a seamless, zero-install solution for screen capturing. whether for creating tutorials, recording bug reports, or saving streaming content. Unlike cloud-based alternatives, this extension processes everything locally, ensuring your data never leaves your device and offering superior performance with low latency.
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### 🎥 High-Quality Recording
 
-Note: This will impact Vite dev & build performances.
+- **Flexible Resolutions**: Choose between **720p**, **1080p**, and **4K** quality settings.
+- **Variable Frame Rates**: Support for smooth **60 FPS** recording or standard **30 FPS**.
+- **Smart Bitrate Management**: Automatically adjusts bitrates based on your selected resolution for optimal quality-to-size ratio.
 
-## Expanding the ESLint configuration
+### 🎙️ Audio Mixing
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **System Audio**: Capture internal computer sounds perfectly.
+- **Microphone Support**: Overlay your voice for commentary.
+- **Advanced Processing**: Built-in **Echo Cancellation** and **Noise Suppression** for crystal clear audio.
+
+### 🛠️ Versatile Formats
+
+- **Format Selection**: Native support for **WebM** and **MP4** export options.
+- **Compatibility**: Smart fallback mechanisms ensure you always get a usable file even if your browser lacks specific codec support.
+
+### 🎨 Modern & Intuitive UI
+
+- **Floating Dock**: A non-intrusive control panel that floats over your content.
+- **Draggable Interface**: Move the controls anywhere on your screen to avoid blocking important content.
+- **Theme Support**: Toggle between **Dark Mode** and **Light Mode** to match your system preference.
+- **Instant Preview**: Watch your recording immediately in a modal before saving.
+
+## 🚀 Technologies Used
+
+- **React**: For a dynamic and responsive user interface.
+- **Vite**: For lightning-fast build tooling.
+- **SCSS Modules**: For modular and collision-free styling.
+- **Lucide React**: For beautiful, consistent iconography.
+- **MediaStream Recording API**: For native browser-based media capturing.
+
+## 📖 How to Use
+
+1. **Launch the Extension**: Click the extension icon to open the floating dock.
+2. **Configure**: Click the settings gear to adjust resolution, FPS, and audio sources.
+3. **Record**: Hit the **Record** button and select the screen, window, or tab you wish to capture.
+4. **Control**: The dock minimizes into a draggable pill. Use it to check recording duration or stop the recording.
+5. **Save**: Upon stopping, a preview window appears. Review your clip and click **Download** to save it to your device.
+
+## 📦 Installation (Development)
+
+1. Clone the repository.
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Build for production:
+
+   ```bash
+   npm run build
+   ```
