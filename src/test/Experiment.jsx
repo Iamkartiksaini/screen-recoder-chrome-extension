@@ -20,6 +20,8 @@ const ScreenRecorderExperiment = (props) => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const rootRef = useRef(null);
 
+    const previewUrlRef = useRef(null);
+
     // Auto-hide when tab is switched and idle
     useEffect(() => {
         const handleVisibilityChange = () => {
@@ -64,14 +66,27 @@ const ScreenRecorderExperiment = (props) => {
         console.log("Experiment Mode")
     }, [status, time]);
 
+    // Cleanup preview URL on unmount
+    useEffect(() => {
+        return () => {
+            if (previewUrlRef.current) {
+                URL.revokeObjectURL(previewUrlRef.current);
+            }
+        };
+    }, []);
+
     // Handle Preview (Open New Tab)
     useEffect(() => {
         if (status === 'preview' && recordedBlob) {
-            const url = URL.createObjectURL(recordedBlob);
-            window.open(url, '_blank');
+            // Revoke previous URL if it exists to avoid memory leaks
+            if (previewUrlRef.current) {
+                URL.revokeObjectURL(previewUrlRef.current);
+            }
 
-            // Clean up
-            setTimeout(() => URL.revokeObjectURL(url), 100);
+            const url = URL.createObjectURL(recordedBlob);
+            previewUrlRef.current = url;
+
+            window.open(url, '_blank');
 
             setStatus('idle');
             // Show dock again on idle
