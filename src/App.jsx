@@ -423,9 +423,9 @@ const ScreenRecorder = (props) => {
                         )}
                     </div>
                 </div>
-                {!isExpanded && status === 'recording' && (
+                {/* {!isExpanded && status === 'recording' && (
                     <div className={styles.tag}>{resolution.toUpperCase()} • {frameRate}FPS</div>
-                )}
+                )} */}
             </div>
         </div>
     );
